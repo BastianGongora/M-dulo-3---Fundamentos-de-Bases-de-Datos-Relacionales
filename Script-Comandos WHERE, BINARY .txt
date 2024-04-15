@@ -1,0 +1,43 @@
+use sakila
+-- Seleccionar los campos “address” y “district” de la tabla “address” donde
+-- distrito sea Texas. 
+select address,district from address where district ="Texas"
+
+-- Seleccionar todas las columnas de la table “payment” cuyo campo “amount”
+-- sea mayor que 11
+select * from payment where amount > 11
+
+-- Visualizar todos los actores de la tabla “actor” cuyo first_name sea “Penelope”.
+-- Prueba con mayúscula y minúsculas para ver si devuelve el mismo resultado.
+select * from actor where first_name ="Penelope";
+
+-- Hacer lo mismo, pero con la cláusula BINARY para comprobar la diferencia.
+SELECT * FROM actor WHERE BINARY first_name = 'PENELOPE';
+
+-- ❖ Visualizar las columnas first_name y last_name de la tabla “customer” de
+-- aquellos clientes que esté inactivos (campo “active” igual a 0) .
+select first_name, last_name from customer where active=0;
+
+-- ❖ Prueba cambiando la igualdad del CERO por un False. ¿funciona? Si es así
+-- ¿Cuál es el motivo?
+select first_name, last_name from customer where active=false;
+-- entiendo que en informatica se puede tomar como falso y 1 como verdadero
+
+
+-- ❖ ¿Qué resultados daría el comando siguiente? ¿Los clientes activos o los
+-- inactivos :
+select first_name,last_name,active from customer where active;
+-- ❖ ¿Y el siguiente?¿Activos o inactivos?
+select first_name,last_name,active from customer where !active;
+-- En el primer comando los muestra verdadero 1 y en segundo caso lo contrario 0
+
+-- ❖ Si ejecutamos esta query contra la tabla “rental”:
+select * from rental where rental_date="2006-02-14";
+-- Verás que no aparece ninguna fila, a pesar de que si existen registros en esa fecha.
+-- ¿A qué es debido? ¿Cómo podríamos visualizar alguno de los registros?
+select * from rental WHERE DATE(rental_date) = '2006-02-14';
+-- si se ve en los registro tambien esta la hora y fecha por ende solo calcular la fecha no mostrara nada en cambio si utilizamos el comando DATE 
+-- cambio el formato a solo la fecha
+
+-- ❖ PISTA. Si hacemos un desc de la tabla Rental comprobamos que la columna
+-- rental_date es de tipo DATETIME, no es de tipo DATE 

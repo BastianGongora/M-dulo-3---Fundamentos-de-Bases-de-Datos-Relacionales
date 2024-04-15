@@ -1,0 +1,36 @@
+-- Prácticas MySQL
+-- 1. Comandos SELECT, FROM,AS,DISTINTC,LIMIT.
+-- ❖ Entramos en la base de datos world”. Utiliza capturas de pantalla.
+use world;
+-- • Comprueba la estructura de la tabla country.
+describe country;
+-- • Realiza una query para recuperar todas las columnas y filas de la de 
+-- la tabla.
+select * from country;
+-- • Visualiza los nombres de los países.
+SELECT Name FROM country;
+-- • Visualizar el nombre el continente y la población de cada país.
+SELECT Continent, Population FROM  country;
+-- ❖ Cambia la cabecera de cada columna de la consulta anterior traduciéndola al 
+-- español.
+SELECT Continent AS 'Continente', Population AS 'Población' FROM country;
+
+-- ❖ Usando la columna “IndepYear” (Año de independencia), Averigua el número 
+-- de años que un país lleva independiente suponiendo que estamos ahora 
+-- mismo en el 2024. Debes visualizar el nombre del país el año de 
+-- independencia y el número de años transcurridos.
+-- • Visualiza el nombre del país el año de independencia el número de 
+-- años transcurridos.
+-- • Debes poner como nombre de columna “Añós Transcurridos”
+--  Nota: si el año de independencia es nulo la expresión también
+--  devolverá nulo. 
+SELECT Name AS 'País', IndepYear AS 'Año de independencia', 
+    (2024 - IndepYear) AS 'Años Transcurridos'
+FROM  country
+WHERE IndepYear IS NOT NULL;
+-- ❖ Visualiza los continentes sin que aparezcan repetidos.
+SELECT DISTINCT Continent as 'Continente' FROM country;
+-- ❖ Visualizar los 5 primeros países.
+SELECT * FROM  country LIMIT 5;
+-- ❖ Visualizar los países desde la posición 10 a la 15
+SELECT * FROM world.country LIMIT 9, 6;
