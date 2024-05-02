@@ -50,6 +50,7 @@ INSERT INTO moneda (nombre_moneda, simbolo_moneda, importe)
 VALUES ('Peso Chileno', 'CLP', 0.00);
 
 -- Insertar algunas transacciones en CLP
+
 INSERT INTO transaccion (rut_usuario_origen, rut_usuario_destino, id_moneda, cantidad)
 VALUES
     ('123456789', '987654321', 3, 1000), -- Juan envía 1000 CLP a María
@@ -82,9 +83,30 @@ WHERE  rut_usuario_origen = '456789123';
 SELECT *
 FROM transaccion
 WHERE  rut_usuario_destino = '456789123';
+
 -- ● Sentencia DML para modificar el campo correo electrónico de un
 -- usuario específico
-UPDATE usuario
-SET correo_electronico = 'juan@gmail.com'
-WHERE rut = '123456789';
-select * from usuario where rut = '123456789';
+
+DELIMITER //
+
+CREATE PROCEDURE ActualizarCorreoUsuario(IN rut_param VARCHAR(10), IN nuevo_correo VARCHAR(50))
+BEGIN
+    -- Iniciar la transacción
+    START TRANSACTION;
+    
+    -- Actualizar el correo electrónico del usuario
+    UPDATE usuario
+    SET correo_electronico = nuevo_correo
+    WHERE rut = rut_param;
+    
+    -- Verificar el cambio antes de confirmar la transacción
+    SELECT * FROM usuario WHERE rut = rut_param;
+    
+    -- Confirmar la transacción
+    COMMIT; 
+END //
+
+DELIMITER ;
+
+CALL ActualizarCorreoUsuario('123456789', 'juan23@gmail.com');
+
